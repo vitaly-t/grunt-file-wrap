@@ -9,24 +9,34 @@ module.exports = function (grunt) {
     grunt.registerMultiTask('fileWrap', 'Adds header + footer.', function () {
 
         var files = this.data.files,
+            header = this.data.header,
+            footer = this.data.footer,
             opt = this.options(),
             tw = new TextWrap();
 
         if (files) {
             for (var f in files) {
                 var src = files[f];
-                if (!grunt.file.exists(src)) {
-                    throw new Error("File '" + src + "' not found.");
-                }
+                checkFile(src);
             }
         }
 
-        if (this.data.header) {
-            tw.header = grunt.file.read(this.data.header);
+        if (header) {
+            if (opt.fileMode) {
+                checkFile(header);
+                tw.header = grunt.file.read(header);
+            } else {
+                tw.header = header;
+            }
         }
 
-        if (this.data.footer) {
-            tw.footer = grunt.file.read(this.data.footer);
+        if (footer) {
+            if (opt.fileMode) {
+                checkFile(footer);
+                tw.footer = grunt.file.read(footer);
+            } else {
+                tw.footer = footer;
+            }
         }
 
         this.files.forEach(function (byDest) {
@@ -48,4 +58,10 @@ module.exports = function (grunt) {
             })
         });
     });
+
+    function checkFile(file) {
+        if (!grunt.file.exists(file)) {
+            throw new Error("File '" + file + "' not found.");
+        }
+    }
 };

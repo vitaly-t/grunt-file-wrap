@@ -1,9 +1,14 @@
 {
   "name": "grunt-file-wrap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Adds a header + footer into your text files automatically.",
+  "scripts": {
+    "test": "jasmine-node test",
+    "coverage": "istanbul cover ./node_modules/jasmine-node/bin/jasmine-node test"
+  },
   "files": [
-    "tasks"
+    "tasks",
+    "test"
   ],
   "homepage": "https://github.com/vitaly-t/grunt-file-wrap",
   "repository": {
@@ -31,5 +36,9 @@
     "text-wrap": "0.1",
     "cli-color": "1.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "coveralls": "2.x",
+    "istanbul": "0.4",
+    "jasmine-node": "1.x"
+  }
 }
