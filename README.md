@@ -32,7 +32,7 @@ module.exports = function (grunt) {
                 footer: 'footer.txt',
                 src: ["files/*.txt"],
                 dest: "out/",
-                cwd: "./",
+                cwd: "./", // current working directory
                 options: {
                     // skipCheck, unique
                 }
@@ -49,6 +49,7 @@ module.exports = function (grunt) {
             }
         }
     });
+    
     grunt.loadNpmTasks('grunt-file-wrap');
     grunt.registerTask('default', ['fileWrap']);
 };
@@ -56,7 +57,7 @@ module.exports = function (grunt) {
 
 ## Options
 
-Options as supported by [text-wrap]:
+Options, as supported by [text-wrap]:
 
 * [skipCheck]
 * [unique]
