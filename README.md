@@ -14,71 +14,52 @@ $ npm install grunt-file-wrap --save-dev
 ```js
 module.exports = function (grunt) {
     grunt.initConfig({
-        decomment: {
-            any: {
-                // use the default `decomment()`, with parsing and auto-detection;
+        fileWrap: {
+            regular: {
+                header: 'header.txt',
+                footer: 'footer.txt',
                 files: {
-                    "output.js": "input.js", // decomment a JavaScript file;
-                    "output.json": "input.json", // decomment a JSON file;
-                    "output.html": "input.html" // decomment an HTML file;
-                }
-            },
-            text: {
-                // use `decomment.text()` to process text-like files,
-                // without parsing or validation: CSS, CPP, H, etc.
-                options: {
-                    type: 'text' // use method `decomment.text()`;
+                    // matching input and output will rewrite the source file;
+                    "output1.txt": "input1.txt",
+                    "output2.txt": "input2.txt"
                 },
-                files: {
-                    "output.css": "input.css", // decomment a CSS file;
-                    "output.cpp": "input.cpp", // decomment a CPP file;
-                    "output.h": "input.h" // decomment a C++ header file;
-                }
-            },
-            html: {
-                // use `decomment.html()` to process HTML-like files,
-                // without any parsing or validation.
                 options: {
-                    type: 'html' // use method `decomment.html()`;
-                },
-                files: {
-                    "output1.html": "input1.html",
-                    "index.html": "index.html", // rewrite the source file;
-                    "./.tmp/index.html": "./.tmp/index.html"
+                    // skipCheck, unique
                 }
             },
             withCwd: {
+                header: 'header.txt',
+                footer: 'footer.txt',
+                src: ["files/*.txt"],
+                dest: "out/",
+                cwd: "./",
                 options: {
-                    type: 'text'
-                },
-                src: ['./*.css', './**/*.css', '!./vendor/**/*'], // array style with globs 
-                dest: './', // output folder
-                cwd: './dist/' // current working directory
+                    // skipCheck, unique
+                }
+            },
+            withRewrite: {
+                // in order to rewrite the source files,
+                // simply skip property 'dest': 
+                header: 'header.txt',
+                footer: 'footer.txt',
+                src: ["files/*.txt"],
+                options: {
+                    // skipCheck, unique
+                }
             }
         }
     });
-
-    grunt.loadNpmTasks('grunt-decomment');
-    grunt.registerTask('default', ['decomment']);
-
+    grunt.loadNpmTasks('grunt-file-wrap');
+    grunt.registerTask('default', ['fileWrap']);
 };
 ```
 
 ## Options
 
-#### type
+Options as supported by [text-wrap]:
 
-Changes the default call into [decomment] to one according to the value:
-* `text` - use method [decomment.text]
-* `html` - use method [decomment.html]
-
-#### safe, space, trim
-
-Options supported by [decomment]:
-
-* [safe]
-* [space]
-* [trim]
+* [skipCheck]
+* [unique]
 
 ## License
 
@@ -86,3 +67,5 @@ Copyright © 2016 [Vitaly Tomilov](https://github.com/vitaly-t);
 Released under the MIT license.
 
 [text-wrap]:https://github.com/vitaly-t/text-wrap
+[skipCheck]:https://github.com/vitaly-t/text-wrap#optionsskipcheck--boolean
+[unique]:https://github.com/vitaly-t/text-wrap#optionsunique--boolean

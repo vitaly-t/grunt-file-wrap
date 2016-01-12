@@ -21,11 +21,11 @@ module.exports = function (grunt) {
             }
         }
 
-        if ('header' in this.data) {
+        if (this.data.header) {
             tw.header = grunt.file.read(this.data.header);
         }
 
-        if ('footer' in this.data) {
+        if (this.data.footer) {
             tw.footer = grunt.file.read(this.data.footer);
         }
 
